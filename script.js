@@ -52,54 +52,97 @@ searchInput.addEventListener('input',()=>{
 })
 console.log(uniqueType);
 
-const renderData = (dataArr)=>{
-    displayCard.innerHTML=""; //each time when it is called we need to empty the container..
+const renderData = (dataArr) => {
+    displayCard.innerHTML = ""; // Clear the display container each time
 
-    // console.log(dataArr);
-    
-    dataArr.forEach((data)=>{
-       let card=document.createElement('div');
-       card.classList.add('card');
-       
-       if(data.types ==="grass") card.style.backgroundColor="#32CD32";
-       else if(data.types ==="fire") card.style.backgroundColor="#FF5733";
-       else if(data.types ==="water") card.style.backgroundColor="#007BA7";
-       else if(data.types ==="bug") card.style.backgroundColor="#9ACD32";
-       else if(data.types ==="normal") card.style.backgroundColor="#A9A9A9";
-       else if(data.types ==="poison") card.style.backgroundColor="#800080";
-       else if(data.types ==="electric") card.style.backgroundColor="#8B8000";
-       else if(data.types ==="fairy") card.style.backgroundColor="#FFC0CB";
-       else if(data.types ==="ground") card.style.backgroundColor="#654321";
-       else if(data.types ==="psychic") card.style.backgroundColor="#8A2BE2";
-       else if(data.types ==="rock") card.style.backgroundColor="#EEDC82";
-       else if(data.types ==="ghost") card.style.backgroundColor="#800080";
-       else if(data.types ==="ice") card.style.backgroundColor="#00FFFF";
-       else if(data.types ==="dragon") card.style.backgroundColor="#FFD700";
-       else if(data.types ==="fighting") card.style.background="#FFA500"
-       
+    dataArr.forEach((data) => {
+        // Create card container
+        let cardContainer = document.createElement('div');
+        cardContainer.classList.add('card-container');
 
+        // Create card
+        let card = document.createElement('div');
+        card.classList.add('card');
+
+        // Create front card
+        let frontCard = document.createElement('div');
+        frontCard.classList.add('front-card');
+
+        // Set background color based on type
+        if (data.types === "grass") frontCard.style.backgroundColor = "#32CD32";
+        else if (data.types === "fire") frontCard.style.backgroundColor = "#FF5733";
+        else if (data.types === "water") frontCard.style.backgroundColor = "#007BA7";
+        else if (data.types === "bug") frontCard.style.backgroundColor = "#9ACD32";
+        else if (data.types === "normal") frontCard.style.backgroundColor = "#A9A9A9";
+        else if (data.types === "poison") frontCard.style.backgroundColor = "#800080";
+        else if (data.types === "electric") frontCard.style.backgroundColor = "#8B8000";
+        else if (data.types === "fairy") frontCard.style.backgroundColor = "#FFC0CB";
+        else if (data.types === "ground") frontCard.style.backgroundColor = "#654321";
+        else if (data.types === "psychic") frontCard.style.backgroundColor = "#8A2BE2";
+        else if (data.types === "rock") frontCard.style.backgroundColor = "#EEDC82";
+        else if (data.types === "ghost") frontCard.style.backgroundColor = "#800080";
+        else if (data.types === "ice") frontCard.style.backgroundColor = "#00FFFF";
+        else if (data.types === "dragon") frontCard.style.backgroundColor = "#FFD700";
+        else if (data.types === "fighting") frontCard.style.background = "#FFA500";
+
+        // Front card content
         let id = document.createElement('div');
         id.innerHTML = data.id;
         id.style.fontWeight = "800";
         id.style.fontSize = '20px';
+
         let img = document.createElement('img');
         img.src = data.images;
+
         let name = document.createElement('h1');
         name.innerHTML = data.name;
+
         let type = document.createElement('h2');
         type.innerHTML = data.types;
 
-        card.appendChild(id);
-        card.appendChild(img);
-        card.appendChild(name);
-        card.appendChild(type);
-        displayCard.appendChild(card);
+        frontCard.appendChild(id);
+        frontCard.appendChild(img);
+        frontCard.appendChild(name);
+        frontCard.appendChild(type);
 
-    })
-    
+        // Create back card
+        let backCard = document.createElement('div');
+        backCard.classList.add('back-card');
+        backCard.style.backgroundColor = frontCard.style.backgroundColor;
 
+        // Back card content
+        let backId = document.createElement('div');
+        backId.innerHTML = data.id;
+        backId.style.fontWeight = "800";
+        backId.style.fontSize = '20px';
 
-}
+        let backImg = document.createElement('img');
+        backImg.src = data.images;
+        backImg.style.transform = "rotateY(180deg)";
+
+        let backName = document.createElement('h1');
+        backName.innerHTML = data.name;
+
+        let abilities = document.createElement('h2');
+        abilities.innerHTML = "Abilities: " + data.abilities;
+
+        backCard.appendChild(backId);
+        backCard.appendChild(backImg);
+        backCard.appendChild(backName);
+        backCard.appendChild(abilities);
+
+        // Append front and back card to card
+        card.appendChild(frontCard);
+        card.appendChild(backCard);
+
+        // Append card to card container
+        cardContainer.appendChild(card);
+
+        // Append card container to displayCard
+        displayCard.appendChild(cardContainer);
+    });
+};
+
 
 const fetchData = async ()=>{
     let promiseArray = [];
