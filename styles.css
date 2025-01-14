@@ -5,7 +5,7 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #FFCC00;
 }
 
@@ -32,6 +32,9 @@ body {
     border-radius: 20px;
     box-shadow: 20px 20px 30px black;
     flex-wrap: wrap;
+    position:sticky;
+    top:0;
+    z-index:1000000;
 }
 
 .search-bar input[type=text], select {
